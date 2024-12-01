@@ -11,8 +11,15 @@ const Board = (props) => {
     let filteredTickets = [];
     if (group === 'status')
         filteredTickets = tickets.filter(ticket => ticket.status.toLowerCase() === data.title.toLowerCase());
-    else if (group === 'priority')
-        filteredTickets = tickets.filter(ticket => ticket.priority === level);
+    else if (group === 'priority') {
+        const priorityLevel = priorities.findIndex(priority => priority.title.toLowerCase() === data.title.toLowerCase());
+    
+        if (priorityLevel !== -1) {
+            filteredTickets = tickets.filter(ticket => ticket.priority === priorityLevel);
+        } else {
+            filteredTickets = []; 
+        }
+    } 
     else
         filteredTickets = tickets.filter(ticket => ticket.userId === userId);
 
